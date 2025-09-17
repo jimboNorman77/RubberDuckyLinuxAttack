@@ -8,14 +8,14 @@ Attack which leverages ill configured docker privileges to gain root access to a
 ## MITRE Attack Vectors
 The attack vectors which are used by the ducky script and where they fall on the MITRE attack framework.
 
-Initial Access: Hardware Additions T1200
-Privilege Escalation: Escape to Host T1611
-Create Account: Local Account T1136
-Impair Command Logging History T1562.003
-Hidden Users T1564.002
-Indicator Removal T1070
+Initial Access: Hardware Additions T1200,
+Privilege Escalation: Escape to Host T1611,
+Create Account: Local Account T1136,
+Impair Command Logging History T1562.003,
+Hidden Users T1564.002,
+Indicator Removal T1070.
 
 The attack vectors which are leveraged on the attacking machine. 
 
-Encrypted Channel: Assymetric Cryptography T1573.002
-Adversary in the Middle T1557
+Encrypted Channel: Assymetric Cryptography T1573.002,
+Adversary in the Middle T1557.
